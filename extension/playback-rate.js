@@ -11,7 +11,7 @@ chrome.extension.sendRequest({}, function(playbackInfo) {
       targetNode = node;
       break;
     }
-    var sourceNodes = node.getElementsByTagName('src');
+    var sourceNodes = node.getElementsByTagName('source');
     for (var j = 0, sourceNode; sourceNode = sourceNodes[j]; j++) {
       if (sourceNode.src == playbackInfo.srcUrl) {
         targetNode = node;
@@ -25,7 +25,8 @@ chrome.extension.sendRequest({}, function(playbackInfo) {
   }
 
   if (!targetNode) {
-    console.log('Could not find target node');
+    console.log(
+        'Could not find target node for ' + JSON.stringify(playbackInfo));
     return;
   }
 

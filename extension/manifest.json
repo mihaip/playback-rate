@@ -1,7 +1,7 @@
 {
   "name": "Playback Rate",
   "description": "Control the playback rate of HTML5 <video> and <audio> elements",
-  "version": "1.0",
+  "version": "1.0.1",
   "background_page": "background.html",
   "icons": {
     "16": "icon16.png",
