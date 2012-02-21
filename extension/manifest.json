@@ -1,0 +1,22 @@
+{
+  "name": "Playback Rate",
+  "description": "Control the playback rate of HTML5 <video> and <audio> elements",
+  "version": "1.0",
+  "background_page": "background.html",
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "permissions": [
+    "contextMenus",
+    "tabs",
+    "<all_urls>"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["*://vimeo.com/*"],
+      "css": ["styles.css"]
+    }
+  ]
+}
