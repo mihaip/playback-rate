@@ -10,29 +10,35 @@ var PLAYBACK_RATES = [
   3.0
 ];
 
-// The content script needs to know which video will have its playback rate
-// increased, it will send a request that we need to respond to (no need to keep
-// track of more than one per tab, since the data is only needed once).
-var playbackInfoByTabId = {};
-chrome.extension.onRequest.addListener(
-  function(request, sender, sendResponse) {
-    sendResponse(playbackInfoByTabId[sender.tab.id]);
-  });
-
 function setPlaybackRate(playbackRate, info, tab) {
-  playbackInfoByTabId[tab.id] = {
+  var playbackInfo = {
     playbackRate: playbackRate,
     srcUrl: info.srcUrl,
     mediaType: info.mediaType
   };
 
-  chrome.tabs.executeScript(tab.id, {file: 'playback-rate.js'});
+  // First inject the script with the definition of the function.
+  chrome.tabs.executeScript(
+    tab.id,
+    {file: 'playback-rate.js'},
+    function() {
+      // Then call it with the current parameters.
+      chrome.tabs.executeScript(
+        tab.id,
+        {code: 'setPlaybackRate(' + JSON.stringify(playbackInfo) + ');'});
+    });
 }
 
-PLAYBACK_RATES.forEach(function(playbackRate) {
-  chrome.contextMenus.create({
-        title: playbackRate + 'x',
-        contexts: ['video', 'audio'],
-        onclick: setPlaybackRate.bind(this, playbackRate)
-      });
+chrome.runtime.onInstalled.addListener(function() {
+  PLAYBACK_RATES.forEach(function(playbackRate) {
+    chrome.contextMenus.create({
+          title: playbackRate + 'x',
+          contexts: ['video', 'audio'],
+          id: String(playbackRate)
+        });
+  });
+});
+
+chrome.contextMenus.onClicked.addListener(function(info, tab) {
+  setPlaybackRate(parseInt(info.menuItemId), info, tab);
 });

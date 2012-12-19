@@ -1,9 +1,4 @@
-chrome.extension.sendRequest({}, function(playbackInfo) {
-  if (!playbackInfo) {
-    console.log('missing playbackInfo');
-    return;
-  }
-
+function setPlaybackRate(playbackInfo) {
   var nodes = document.getElementsByTagName(playbackInfo.mediaType);
   var targetNode;
   for (var i = 0, node; node = nodes[i]; i++) {
@@ -31,4 +26,4 @@ chrome.extension.sendRequest({}, function(playbackInfo) {
   }
 
   targetNode.playbackRate = playbackInfo.playbackRate;
-});
+}
