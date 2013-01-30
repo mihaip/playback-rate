@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Playback Rate",
   "description": "Control the playback rate of HTML5 <video> and <audio> elements",
-  "version": "1.1",
+  "version": "1.1.1",
   "background": {
     "scripts": ["background.js"],
     "persistent": false

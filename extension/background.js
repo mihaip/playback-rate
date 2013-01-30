@@ -40,5 +40,5 @@ chrome.runtime.onInstalled.addListener(function() {
 });
 
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
-  setPlaybackRate(parseInt(info.menuItemId), info, tab);
+  setPlaybackRate(parseFloat(info.menuItemId), info, tab);
 });
