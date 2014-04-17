@@ -5,3 +5,10 @@ injecting this style, we force the <video> to be on top. */
   position: absolute;
   z-index: 2;
 }
+
+/* New DOM structure as of April 2014. 11 is enough to be in front of the
+"target" <div> (z-index 10) which eats clicks otherwise, but low enough to be
+behind the "controls" <div> (z-index 40) */
+.player_container .video-wrapper {
+    z-index: 11;
+}
