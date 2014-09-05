@@ -1,14 +1,4 @@
-/* Vimeo's HTML5 player has a div (with a thumbnail?) that ends up on top of
-the <video>, which means that the right-click target won't be a <video>. By
-injecting this style, we force the <video> to be on top. */
-.vimeo_holder video {
-  position: absolute;
-  z-index: 2;
-}
-
-/* New DOM structure as of April 2014. 11 is enough to be in front of the
-"target" <div> (z-index 10) which eats clicks otherwise, but low enough to be
-behind the "controls" <div> (z-index 40) */
-.player_container .video-wrapper {
-    z-index: 11;
+// Hide a <div> that appears to be eating right-clicks on top of the video.
+.player_container .target {
+    display: none !important;
 }
